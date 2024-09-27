@@ -76,7 +76,7 @@ const SignIn = () => {
                   // console.log(formData.get("password"));
                   // console.log("formdata");
                   // Sign in with credentials
-                  const result = await signIn("credentials", {
+                  const result =  signIn("credentials", {
                     redirect: false,
                     email: formData.get("email"),
                     password: formData.get("password"),
@@ -171,6 +171,7 @@ const SignIn = () => {
                   </a>
                 </p>
               </form>
+              
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import ReduxProvider from "@/store/provider";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { auth } from "@/auth";
@@ -41,10 +41,12 @@ export default async function RootLayout({
         enableSystem
         disableTransitionOnChange
       >
+        <ReduxProvider>
         <body className={` antialiased hide-scrollbar lg:hide-scrollbar `}>
           <Navbar userData={user} />
           {children}
         </body>
+        </ReduxProvider>
       </ThemeProvider>
     </html>
   );
