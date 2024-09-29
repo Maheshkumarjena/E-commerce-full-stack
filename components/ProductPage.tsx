@@ -6,7 +6,7 @@ const ProductPage: React.FC = () => {
       <Product title="flowers" bgColor="bg-yellow-400" />
       <Product title="flowersss" bgColor="bg-purple-400" />
       <Product title="flowersssss" bgColor="bg-pink-400" />
-      <Product title="flowerssssssssss" bgColor="bg-rose-400" />
+      <Product title="flowerssssssssss for office and also for lovers and family" bgColor="bg-rose-400" />
     </div>
   );
 };
