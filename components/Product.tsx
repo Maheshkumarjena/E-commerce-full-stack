@@ -3,14 +3,43 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaCartPlus } from "react-icons/fa";
+import { useDispatch } from "react-redux"; // Import the Redux useDispatch hook
+import ViewMoreText from "./ui/viewMore";
+import { addToCart as addToCartAction } from "@/app/features/cartSlice"; // Import the addToCart action
+import { nanoid } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store"; // Import the RootState type
+
 
 // Define types for props
 interface ProductProps {
+  id: string;
   title: string;
-  bgColor: string;
+  price: number;
+  bgColor: string; 
 }
 
-const Product: React.FC<ProductProps> = ({ title, bgColor }) => {
+const Product: React.FC<ProductProps> = ({ id, title, price, bgColor }) => {
+
+
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+
+  const addToCart = () => {
+
+    
+    console.log("cartItems", cartItems);
+    // Create a cart item with the relevant details
+    const cartItem = {
+      id,
+      title,
+      price,
+      quantity: 1,
+    };
+    // Dispatch the action to add the item to the cart
+    dispatch(addToCartAction(cartItem));
+  };
+
   return (
     <motion.div
       initial={{ y: 98, opacity: 0 }}
@@ -19,7 +48,7 @@ const Product: React.FC<ProductProps> = ({ title, bgColor }) => {
       className="pb-12"
     >
       <div
-        className={`flex-shrink-0 m-6 max-w-[240px] relative overflow-hidden rounded-lg min-h-[300px]  shadow-lg ${bgColor}`}
+        className={`flex-shrink-0 m-6  max-w-[240px] relative overflow-hidden rounded-lg min-h-[300px]  shadow-lg ${bgColor}`}
       >
         <svg
           className="absolute bottom-0 left-0 mb-8"
@@ -45,7 +74,7 @@ const Product: React.FC<ProductProps> = ({ title, bgColor }) => {
             fill="white"
           />
         </svg>
-        <div className="relative pt-3 px-10 flex items-center justify-center">
+        <div className="relative flex items-center justify-center">
           <div
             className="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
             style={{
@@ -56,7 +85,7 @@ const Product: React.FC<ProductProps> = ({ title, bgColor }) => {
           ></div>
           <img
             className="relative "
-            src="https://user-images.githubusercontent.com/2805249/64069899-8bdaa180-cc97-11e9-9b19-1a9e1a254c18.png"
+            src="https://images.pexels.com/photos/7354666/pexels-photo-7354666.jpeg?auto=compress&cs=tinysrgb&w=600"
             alt="Peace Lily"
           />
         </div>
@@ -65,24 +94,23 @@ const Product: React.FC<ProductProps> = ({ title, bgColor }) => {
           <div className="flex flex-col justify-between items-baseline gap-2 min-h-fit ">
             <span className="block opacity-75 -mb-1">Indoor</span>
             <span className=" font-semibold text-foreground flex text-[13px] max-w-[110px] pb-1">
-              {title}
+              <ViewMoreText text={title} limit={40} />
             </span>
           </div>
-          <div className="flex justify-between items-center flex-col">
-            <span className="block text-background text-xs font-bold px-3 py-2 leading-none flex items-center justify-end">
-              $36.00
+          <div className="flex justify-end self-end my-2 items-center flex-col h-full">
+            <span className=" text-background text-xs font-bold px-3 py-2 leading-none flex items-center justify-end">
+              ${price}
             </span>
             <button
+              onClick={addToCart}
               type="submit"
-              className="flex cursor-pointer flex-row items-center gap-1 justify-center bg-accent rounded-full text-foreground text-xs font-bold px-3 py-2 leading-none  "
+              className="flex active:scale-[0.96] cursor-pointer flex-row items-center gap-1 justify-center bg-accent rounded-full text-foreground text-xs font-bold px-3 py-2 leading-none  "
             >
               <p>add to cart</p>
               <FaCartPlus />
             </button>
           </div>
         </div>
-
-
       </div>
     </motion.div>
   );

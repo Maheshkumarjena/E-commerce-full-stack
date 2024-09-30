@@ -1,64 +1,40 @@
-import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+// cartSlice.ts
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Cart {
-    id: string,
-    text: string,
+// Define the structure of a cart item
+interface CartItem {
+    id: string;
+    title: string;
+    price: number;
+    quantity: number;
 }
 
+// Define the initial state
 interface CartState {
-    cartItems: Cart[];
-    currentItem: Cart | null;
-    isModalOpen: boolean;
-    error: string | null;
+    items: CartItem[];
 }
 
 const initialState: CartState = {
-    cartItems: [],
-    currentItem: null,
-    isModalOpen: false,
-    error: null,
+    items: [],
 };
 
 export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addToCart: (state, action: PayloadAction<string>) => {
-            const cart: Cart = {
-                id: nanoid(),
-                text: action.payload,
-            };
-            state.cartItems.push(cart);
-        },
-        removeFromCart: (state, action: PayloadAction<string>) => {
-            state.cartItems = state.cartItems.filter(cartItem => cartItem.id !== action.payload);
-        },
-        toggleModal: (state) => {
-            state.isModalOpen = !state.isModalOpen;
-        },
-        setCurrentItem: (state, action: PayloadAction<string>) => {
-            const selectedItem = state.cartItems.find(cartItem => cartItem.id === action.payload);
-            if (selectedItem) {
-                state.currentItem = selectedItem;
+        addToCart: (state, action: PayloadAction<CartItem>) => {
+            const item = state.items.find((i) => i.id === action.payload.id);
+            if (item) {
+                item.quantity += 1;
             } else {
-                state.error = "Item not found";
+                state.items.push(action.payload);
             }
         },
-        clearCart: (state) => {
-            state.cartItems = [];
+        removeFromCart: (state, action: PayloadAction<string>) => {
+            state.items = state.items.filter((item) => item.id !== action.payload);
         },
-        setError: (state, action: PayloadAction<string>) => {
-            state.error = action.payload;
-        },
-        clearError: (state) => {
-            state.error = null;
-        }
-    }
+    },
 });
 
-
-// Export actions
-export const { addToCart, removeFromCart, toggleModal, setCurrentItem, clearCart, setError, clearError } = cartSlice.actions;
-
-// Export reducer
+export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;

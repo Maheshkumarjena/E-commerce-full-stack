@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ReduxProvider from "@/store/provider";
+import ReduxProvider from "@/app/provider";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { auth } from "@/auth";
