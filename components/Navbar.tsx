@@ -123,11 +123,13 @@ const Navbar: React.FC = ({userData}) => {
               About
             </p>
           </Link>
-          <Link href="/blogs">
+          <Link href="/cart">
             <p className=" transition-all duration-300 ease-in-out hover:font-bold hover:scale-105 ">
-              Blogs
+              Products
             </p>
           </Link>
+
+          
           <Button variant="ghost">
             <Link href="/signIn">SignIn</Link>
           </Button>
