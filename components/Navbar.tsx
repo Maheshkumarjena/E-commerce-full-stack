@@ -71,11 +71,14 @@ const Navbar: React.FC = ({userData}) => {
 
                     <SheetTrigger>
                       <SheetTitle className=" hover:text-primary   transition-all duration-300 ease-in-out hover:font-bold hover:scale-105">
-                        <Link href="/blog">
-                          <SheetTrigger>Blog</SheetTrigger>
+                        <Link href="/cart">
+                          <SheetTrigger>Cart</SheetTrigger>
                         </Link>
                       </SheetTitle>
                     </SheetTrigger>
+
+
+
 
                     <Button variant="outline" className="w-fit mx-auto">
                       <Link href="/signIn">

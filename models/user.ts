@@ -18,7 +18,13 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   }, // Corrected 'isVerfield' to 'isVerified'
   provider: { type: String, required: false }, // Make provider optional
-  verificationToken: { type: String, required: true }
+  verificationToken: { type: String, required: true },
+  cart: [
+    {
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" }, // Reference to Product model
+      quantity: { type: Number, required: true, default: 1 } // Quantity of product
+    }
+  ]
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);   
