@@ -4,6 +4,8 @@ import ReduxProvider from "@/app/provider";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { auth } from "@/auth";
+import { Toaster } from "@/components/ui/toaster";
+
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
 //   variable: "--font-geist-sans",
@@ -42,10 +44,11 @@ export default async function RootLayout({
         disableTransitionOnChange
       >
         <ReduxProvider>
-        <body className={` antialiased hide-scrollbar lg:hide-scrollbar `}>
-          <Navbar userData={user} />
-          {children}
-        </body>
+          <body className={` antialiased hide-scrollbar lg:hide-scrollbar `}>
+            <Navbar userData={user} />
+            {children}
+            <Toaster />
+          </body>
         </ReduxProvider>
       </ThemeProvider>
     </html>

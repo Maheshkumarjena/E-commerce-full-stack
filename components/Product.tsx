@@ -9,7 +9,7 @@ import { addToCart as addToCartAction } from "@/app/features/cartSlice"; // Impo
 import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store"; // Import the RootState type
-
+import { useToast } from "@/hooks/use-toast";
 
 // Define types for props
 interface ProductProps {
@@ -24,6 +24,7 @@ const Product: React.FC<ProductProps> = ({ id, title, price, bgColor }) => {
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const { toast } = useToast();
 
   const addToCart = () => {
 
@@ -36,6 +37,10 @@ const Product: React.FC<ProductProps> = ({ id, title, price, bgColor }) => {
       price,
       quantity: 1,
     };
+    toast({
+      title: `${cartItem.title} , add to cart `,
+      // description: "Friday, February 10, 2023 at 5:57 PM",
+    });
     // Dispatch the action to add the item to the cart
     dispatch(addToCartAction(cartItem));
   };
