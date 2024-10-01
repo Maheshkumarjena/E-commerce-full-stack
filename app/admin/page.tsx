@@ -1,14 +1,14 @@
-"use client"
-
+"use client";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../features/productSlice";
 import ProductForm from "@/components/productForm";
+import { RootState } from "../store"; // Adjust the import according to your store setup
 
-const ProductsPage = () => {
+const ProductsPage: React.FC = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products.items);
+  const products = useSelector((state: RootState) => state.products.items);
 
   useEffect(() => {
     dispatch(fetchProducts());
