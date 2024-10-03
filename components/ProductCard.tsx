@@ -10,6 +10,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store"; // Import the RootState type
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
 
 // Define types for props
 interface ProductProps {
@@ -19,16 +20,18 @@ interface ProductProps {
   bgColor: string; 
 }
 
-const Product: React.FC<ProductProps> = ({ id, title, price, bgColor }) => {
-
-
+const ProductCard: React.FC<ProductProps> = ({
+  id,
+  title,
+  price,
+  bgColor,
+  imageUrl,
+}) => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const { toast } = useToast();
 
   const addToCart = () => {
-
-    
     console.log("cartItems", cartItems);
     // Create a cart item with the relevant details
     const cartItem = {
@@ -88,10 +91,18 @@ const Product: React.FC<ProductProps> = ({ id, title, price, bgColor }) => {
               opacity: 0.2,
             }}
           ></div>
-          <img
-            className="relative "
-            src="https://images.pexels.com/photos/7354666/pexels-photo-7354666.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="Peace Lily"
+
+          <Image
+            src={imageUrl}
+            alt="Description of the image"
+            width={700}
+            height={475}
+            layout="responsive"
+            quality={80}
+            priority
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            onLoadingComplete={(result) => console.log("Image loaded:", result)}
+            onError={(event) => console.error("Image failed to load:", event)}
           />
         </div>
 
@@ -121,4 +132,4 @@ const Product: React.FC<ProductProps> = ({ id, title, price, bgColor }) => {
   );
 };
 
-export default Product;
+export default ProductCard;

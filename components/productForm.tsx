@@ -27,28 +27,24 @@ const ProductForm: React.FC = () => {
     }));
   };
 
+  
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
-
- const handleSubmit = async (event: React.FormEvent) => {
-   event.preventDefault();
-
-
-const formdata = {
-  ...formData,
-  price: Number(formData.price),
-  stock: Number(formData.stock),
-};
-   try {
-     console.log("Sending product data:", formdata); // Log what you're sending
-     const response = await axios.post("/api/product", formdata);
-     console.log("Product created:", response.data);
-   } catch (error) {
-     console.error("There was an error creating the product!", error);
-     // Optionally, you can check error.response.data for more details
-   }
- };
-
-
+    const formdata = {
+      ...formData,
+      price: Number(formData.price),
+      stock: Number(formData.stock),
+    };
+    try {
+      console.log("Sending product data:", formdata); // Log what you're sending
+      const response = await axios.post("/api/product", formdata);
+      console.log("Product created:", response.data);
+    } catch (error) {
+      console.error("There was an error creating the product!", error);
+      // Optionally, you can check error.response.data for more details
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-md">
